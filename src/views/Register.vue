@@ -26,8 +26,8 @@
               placeholder="Email address"
               v-model="email"
             />
-            <p class="px-2 mt-1 text-xs text-red-600 hidden">
-              Please insert a valid email address
+            <p v-if="emailError" class="px-2 mt-1 text-xs text-red-600">
+              {{ emailError }}
             </p>
           </div>
           <div>
@@ -42,8 +42,8 @@
               placeholder="Password"
               v-model="password"
             />
-            <p class="px-2 mt-1 text-xs text-red-600 hidden">
-              Your password must be at least 12 characters long
+            <p v-if="passwordError" class="px-2 mt-1 text-xs text-red-600">
+              {{ passwordError }}
             </p>
           </div>
         </div>
@@ -71,9 +71,7 @@
             </span>
             Sign up
           </button>
-          <p class="px-2 mt-1 text-xs text-red-600 hidden">
-            Sorry, some error occured during signup. Please try again.
-          </p>
+          <p class="px-2 mt-1 text-xs text-red-600 hidden"></p>
         </div>
       </form>
     </div>
@@ -83,15 +81,38 @@
 <script lang="ts">
 import Vue from "vue";
 
+const EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export default Vue.extend({
   data() {
     return {
       email: "",
       password: "",
+      emailError: "",
+      passwordError: "",
     };
   },
   methods: {
+    validate() {
+      this.clearErrors();
+      let entireFormIsValid = true;
+      if (!EmailRegex.test(this.email)) {
+        entireFormIsValid = false;
+        this.emailError = "Please insert a valid email address";
+      }
+      if (this.password.length < 9) {
+        entireFormIsValid = false;
+        this.passwordError = "Your password must be at least 9 characters long";
+      }
+      return entireFormIsValid;
+    },
+    clearErrors() {
+      this.emailError = "";
+      this.passwordError = "";
+    },
     submit() {
+      if (!this.validate()) return;
+      console.log("Submitting Form");
       console.log("Email:", this.email, "Password:", this.password);
     },
   },
