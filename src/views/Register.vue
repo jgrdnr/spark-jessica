@@ -151,7 +151,9 @@ export default Vue.extend({
           }
         );
         console.log(response);
-        alert("You registered successfully!");
+        const { user, token } = response.data;
+        this.$store.commit("SET_USER", { user, token });
+        this.$router.push({ name: "Dashboard" });
       } catch (error) {
         console.error(error.response);
         this.submitError =
