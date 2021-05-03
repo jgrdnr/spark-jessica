@@ -12,18 +12,19 @@
           Create your account
         </h2>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <form class="mt-8 space-y-6" @submit.prevent="submit">
         <div class="space-y-4">
           <div>
             <label for="email-address" class="sr-only">Email address</label>
             <input
               id="email-address"
               name="email"
-              type="email"
+              type="text"
               autocomplete="email"
               required
               class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
               placeholder="Email address"
+              v-model="email"
             />
             <p class="px-2 mt-1 text-xs text-red-600 hidden">
               Please insert a valid email address
@@ -39,6 +40,7 @@
               required
               class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
               placeholder="Password"
+              v-model="password"
             />
             <p class="px-2 mt-1 text-xs text-red-600 hidden">
               Your password must be at least 12 characters long
@@ -81,7 +83,19 @@
 <script lang="ts">
 import Vue from "vue";
 
-export default Vue.extend({});
+export default Vue.extend({
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    submit() {
+      console.log("Email:", this.email, "Password:", this.password);
+    },
+  },
+});
 </script>
 
 <style scoped></style>
