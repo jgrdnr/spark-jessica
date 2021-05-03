@@ -71,7 +71,9 @@
             </span>
             Sign up
           </button>
-          <p class="px-2 mt-1 text-xs text-red-600 hidden"></p>
+          <p v-if="submitError" class="px-2 mt-1 text-xs text-red-600">
+            {{ submitError }}
+          </p>
         </div>
       </form>
     </div>
@@ -80,6 +82,7 @@
 
 <script>
 import Vue from "vue";
+import axios from "axios";
 
 const EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -90,6 +93,7 @@ export default Vue.extend({
       emailTouched: false,
       password: "",
       passwordTouched: false,
+      submitError: "",
     };
   },
   computed: {
@@ -117,12 +121,42 @@ export default Vue.extend({
     },
   },
   methods: {
-    submit() {
+    async submit() {
+      this.submitError = "";
       this.emailTouched = true;
       this.passwordTouched = true;
       if (!this.entireFormIsValid) return;
       console.log("Submitting Form");
       console.log("Email:", this.email, "Password:", this.password);
+
+      const email = this.email;
+      const password = this.password;
+
+      try {
+        const response = await axios.post(
+          process.env.VUE_APP_FUSION_AUTH_URL + "/api/user/registration",
+          {
+            registration: {
+              applicationId: process.env.VUE_APP_FUSION_AUTH_APP_ID,
+            },
+            user: {
+              email,
+              password,
+            },
+          },
+          {
+            headers: {
+              Authorization: process.env.VUE_APP_FUSION_AUTH_API_KEY,
+            },
+          }
+        );
+        console.log(response);
+        alert("You registered successfully!");
+      } catch (error) {
+        console.error(error.response);
+        this.submitError =
+          "Sorry, something went wrong during your registration. Please try again.";
+      }
     },
   },
 });
