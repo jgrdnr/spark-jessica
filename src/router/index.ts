@@ -14,7 +14,7 @@ const routes: Array<RouteConfig> = [
     component: Dashboard,
     beforeEnter(to, from, next) {
       if (!store.state.user) {
-        return next({ name: "Register" });
+        return next({ name: "Login" });
       }
       next();
     },

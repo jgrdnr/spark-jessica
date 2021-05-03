@@ -25,7 +25,7 @@ export default Vue.extend({
   methods: {
     logout() {
       this.$store.commit("CLEAR");
-      this.$router.push({ name: "Register" });
+      this.$router.push({ name: "Login" });
     },
   },
 });

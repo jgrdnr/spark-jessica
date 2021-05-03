@@ -4,13 +4,23 @@
   >
     <div class="max-w-md w-full space-y-8">
       <div>
-        <h1 class="mx-auto text-6xl font-extrabold text-indigo-600 text-center">
+        <h1
+          class="mx-auto text-6xl font-extrabold text-indigo-600 text-center mb-4"
+        >
           Spark
         </h1>
 
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 class="text-center mb-4 text-3xl font-extrabold text-gray-900">
           Create your account
         </h2>
+        <p class="text-center">
+          Already have an account?
+          <router-link
+            :to="{ name: 'Login' }"
+            class="text-indigo-600 font-semibold hover:underline"
+            >Login</router-link
+          >
+        </p>
       </div>
       <form class="mt-8 space-y-6" @submit.prevent="submit">
         <div class="space-y-4">
