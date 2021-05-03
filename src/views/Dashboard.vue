@@ -8,6 +8,12 @@
         You are logged in as {{ $store.state.user.email }}
       </p>
     </div>
+    <button
+      @click="logout"
+      class="fixed bottom-0 right-0 px-4 py-2 text-sm hover:text-indigo-600"
+    >
+      Logout
+    </button>
   </div>
 </template>
 
@@ -16,5 +22,11 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "Dashboard",
+  methods: {
+    logout() {
+      this.$store.commit("CLEAR");
+      this.$router.push({ name: "Register" });
+    },
+  },
 });
 </script>

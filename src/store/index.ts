@@ -15,6 +15,10 @@ export default new Vuex.Store({
       state.user = user;
       state.token = token;
     },
+    CLEAR(state) {
+      state.user = null;
+      state.token = null;
+    },
   },
   actions: {},
   modules: {},
