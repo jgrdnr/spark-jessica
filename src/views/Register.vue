@@ -21,10 +21,10 @@
               name="email"
               type="text"
               autocomplete="email"
-              required
               class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
               placeholder="Email address"
               v-model="email"
+              @blur="emailTouched = true"
             />
             <p v-if="emailError" class="px-2 mt-1 text-xs text-red-600">
               {{ emailError }}
@@ -37,10 +37,10 @@
               name="password"
               type="password"
               autocomplete="current-password"
-              required
               class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
               placeholder="Password"
               v-model="password"
+              @blur="passwordTouched = true"
             />
             <p v-if="passwordError" class="px-2 mt-1 text-xs text-red-600">
               {{ passwordError }}
@@ -87,28 +87,39 @@ export default Vue.extend({
   data() {
     return {
       email: "",
+      emailTouched: false,
       password: "",
+      passwordTouched: false,
     };
   },
   computed: {
     emailError() {
+      if (!this.emailTouched) return "";
       if (!EmailRegex.test(this.email)) {
         return "Please insert a valid email address";
       }
       return "";
     },
     passwordError() {
+      if (!this.passwordTouched) return "";
       if (this.password.length < 9) {
         return "Your password must be at least 9 characters long";
       }
       return "";
     },
     entireFormIsValid() {
-      return this.passwordError == "" && this.emailError == "";
+      return (
+        this.passwordTouched &&
+        this.emailTouched &&
+        this.passwordError == "" &&
+        this.emailError == ""
+      );
     },
   },
   methods: {
     submit() {
+      this.emailTouched = true;
+      this.passwordTouched = true;
       if (!this.entireFormIsValid) return;
       console.log("Submitting Form");
       console.log("Email:", this.email, "Password:", this.password);
