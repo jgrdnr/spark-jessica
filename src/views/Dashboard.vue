@@ -1,6 +1,6 @@
 <template>
   <div class="grid place-items-center min-h-screen">
-    <h1 class="text-6xl text-purple-800 font-semibold">Welcome to Spark</h1>
+    <h1 class="text-6xl text-indigo-600 font-semibold">Welcome to Spark</h1>
   </div>
 </template>
 
