@@ -78,7 +78,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 
 const EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -88,30 +88,28 @@ export default Vue.extend({
     return {
       email: "",
       password: "",
-      emailError: "",
-      passwordError: "",
     };
   },
-  methods: {
-    validate() {
-      this.clearErrors();
-      let entireFormIsValid = true;
+  computed: {
+    emailError() {
       if (!EmailRegex.test(this.email)) {
-        entireFormIsValid = false;
-        this.emailError = "Please insert a valid email address";
+        return "Please insert a valid email address";
       }
+      return "";
+    },
+    passwordError() {
       if (this.password.length < 9) {
-        entireFormIsValid = false;
-        this.passwordError = "Your password must be at least 9 characters long";
+        return "Your password must be at least 9 characters long";
       }
-      return entireFormIsValid;
+      return "";
     },
-    clearErrors() {
-      this.emailError = "";
-      this.passwordError = "";
+    entireFormIsValid() {
+      return this.passwordError == "" && this.emailError == "";
     },
+  },
+  methods: {
     submit() {
-      if (!this.validate()) return;
+      if (!this.entireFormIsValid) return;
       console.log("Submitting Form");
       console.log("Email:", this.email, "Password:", this.password);
     },
