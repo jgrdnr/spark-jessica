@@ -9,6 +9,7 @@
           name="title"
           placeholder="Take a note"
           v-model="title"
+          @blur="titleTouched = true"
         />
         <p class="text-sm text-indigo-500" v-if="titleHint">
           {{ titleHint }}
@@ -45,20 +46,21 @@ export default {
   data() {
     return {
       title: "",
+      titleTouched: false,
       content: "",
       submitError: "",
-      titleHint: "",
     };
+  },
+  computed: {
+    titleHint() {
+      if (this.titleTouched == false) return "";
+      if (!this.title) return "Please insert a title";
+      return "";
+    },
   },
   methods: {
     validate() {
-      if (!this.title) {
-        this.titleHint = "Please insert a title";
-        return false;
-      } else {
-        this.titleHint = "";
-      }
-
+      if (this.titleHint) return false;
       return true;
     },
     clearErrors() {
