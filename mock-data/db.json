@@ -27,6 +27,14 @@
       "createdAt": "2021-05-05T13:06:32.240Z",
       "updatedAt": "2021-05-05T13:06:32.240Z",
       "createdBy": "user-1"
+    },
+    {
+      "title": "A new note",
+      "content": "This is it's content",
+      "collection": "Personal",
+      "createdAt": "2021-05-06T09:41:34.315Z",
+      "updatedAt": "2021-05-06T09:41:34.315Z",
+      "id": "C3bozQ_"
     }
   ]
 }

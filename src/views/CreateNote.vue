@@ -13,21 +13,43 @@
       <div>
         <button type="submit">Create</button>
       </div>
+      <p v-if="submitError" class="px-2 mt-1 text-xs text-red-600">
+        {{ submitError }}
+      </p>
     </form>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       title: "",
       content: "",
+      submitError: "",
     };
   },
   methods: {
     async submit() {
       console.log("Title: ", this.title, "Content: ", this.content);
+      try {
+        const now = new Date();
+        const response = await axios.post("http://localhost:3000/notes", {
+          title: this.title,
+          content: this.content,
+          collection: "Personal",
+          createdAt: now,
+          updatedAt: now,
+        });
+
+        const id = response.data.id;
+        this.$router.push("/notes/" + id);
+      } catch (error) {
+        console.error(error);
+        this.submitError = "Sorry, something went wrong";
+      }
     },
   },
 };
