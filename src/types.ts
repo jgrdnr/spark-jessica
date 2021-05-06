@@ -3,7 +3,7 @@ export interface Note {
   title: string;
   content?: string;
   collection: string;
-  createdBy: Date;
+  createdBy: string;
   createdAt: Date;
   deletedAt: Date;
   updatedAt: Date;
