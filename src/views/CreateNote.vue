@@ -1,19 +1,37 @@
 <template>
-  <div>
-    <h1>Take a note</h1>
-    <form @submit.prevent="submit">
-      <div>
+  <div class="p-4 pt-6">
+    <form @submit.prevent="submit" class="max-w-screen-sm mx-auto">
+      <div class="mb-4">
         <label for="title" class="sr-only">Title</label>
-        <input type="text" name="title" placeholder="Title" v-model="title" />
+        <input
+          class="w-full text-xl font-medium focus:outline-none bg-transparent "
+          type="text"
+          name="title"
+          placeholder="Take a note"
+          v-model="title"
+        />
+        <p class="text-sm text-indigo-500" v-if="titleHint">
+          {{ titleHint }}
+        </p>
       </div>
       <div>
         <label for="content" class="sr-only">Content</label>
-        <textarea placeholder="Content" v-model="content" />
+        <textarea
+          class="bg-transparent resize-none text-lg focus:outline-none"
+          placeholder="Content"
+          rows="10"
+          v-model="content"
+        />
       </div>
-      <div>
-        <button type="submit">Create</button>
+      <div class="mt-4">
+        <button
+          class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
+          type="submit"
+        >
+          Create
+        </button>
       </div>
-      <p v-if="submitError" class="px-2 mt-1 text-xs text-red-600">
+      <p v-if="submitError" class="mt-1 text-xs text-red-600">
         {{ submitError }}
       </p>
     </form>
@@ -29,11 +47,27 @@ export default {
       title: "",
       content: "",
       submitError: "",
+      titleHint: "",
     };
   },
   methods: {
+    validate() {
+      if (!this.title) {
+        this.titleHint = "Please insert a title";
+        return false;
+      } else {
+        this.titleHint = "";
+      }
+
+      return true;
+    },
+    clearErrors() {
+      this.submitError = "";
+    },
     async submit() {
-      console.log("Title: ", this.title, "Content: ", this.content);
+      this.clearErrors();
+
+      if (!this.validate()) return;
       try {
         const now = new Date();
         const response = await axios.post("http://localhost:3000/notes", {
@@ -48,7 +82,8 @@ export default {
         this.$router.push("/notes/" + id);
       } catch (error) {
         console.error(error);
-        this.submitError = "Sorry, something went wrong";
+        this.submitError =
+          "Sorry, something went wrong. Please try again later.";
       }
     },
   },
