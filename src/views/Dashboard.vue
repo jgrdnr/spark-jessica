@@ -1,11 +1,24 @@
 <template>
-  <div>
-    <div v-for="note in notes" :key="note.id">
-      <h3>{{ note.title }}</h3>
-      <p>{{ note.content }}</p>
-      <p>{{ new Date(note.createdAt).toLocaleDateString() }}</p>
-      <router-link :to="{ name: 'Note', params: { id: note.id } }"
-        >Open</router-link
+  <div class="p-4">
+    <div class="max-w-screen-sm mx-auto">
+      <router-link
+        class="block border-b py-4"
+        :to="{ name: 'Note', params: { id: note.id } }"
+        v-for="note in notes"
+        :key="note.id"
+      >
+        <div>
+          <header class="mb-2">
+            <h3 class="text-xs text-indigo-400">
+              {{ note.collection }}
+            </h3>
+            <h2 class="text-lg font-medium">{{ note.title }}</h2>
+          </header>
+          <p>{{ note.content }}</p>
+          <p class="text-sm text-gray-400 mt-2 text-right">
+            {{ new Date(note.createdAt).toLocaleDateString() }}
+          </p>
+        </div></router-link
       >
     </div>
   </div>

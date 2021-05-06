@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <h1>Note</h1>
-    <h3>{{ note.title }}</h3>
-    <p>{{ note.content }}</p>
+  <div class="py-6 px-4 max-w-screen-sm mx-auto">
+    <header class="mb-4">
+      <h2 class="text-indigo-500 text-lg">{{ note.collection }}</h2>
+      <h1 class="text-4xl font-medium">{{ note.title }}</h1>
+    </header>
+    <p class="leading-relaxed text-lg">{{ note.content }}</p>
+    <div class="text-sm text-right text-gray-400 mt-4">
+      {{ new Date(note.createdAt).toLocaleDateString() }}
+    </div>
   </div>
 </template>
 
