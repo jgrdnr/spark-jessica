@@ -1,11 +1,12 @@
 <template>
   <div class="p-4 pt-8 max-w-screen-sm mx-auto">
     <div class="flex justify-center">
-      <button
+      <router-link
+        :to="{ name: 'CreateNote' }"
         class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
       >
         Take a note
-      </button>
+      </router-link>
     </div>
     <router-link
       class="block border-b py-4"

@@ -4,6 +4,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Note from "../views/Note.vue";
 import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
+import CreateNote from "../views/CreateNote.vue";
 import store from "../store/index";
 
 Vue.use(VueRouter);
@@ -35,6 +36,11 @@ const routes: Array<RouteConfig> = [
     name: "Note",
     component: Note,
     props: true,
+  },
+  {
+    path: "/create-note",
+    name: "CreateNote",
+    component: CreateNote,
   },
 ];
 
