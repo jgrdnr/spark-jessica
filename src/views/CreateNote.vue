@@ -79,6 +79,7 @@ export default {
           collection: "Personal",
           createdAt: now,
           updatedAt: now,
+          createdBy: this.$store.state.user.id,
         });
 
         const id = response.data.id;
