@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     validate() {
+      this.titleTouched = true;
       if (this.titleHint) return false;
       return true;
     },
