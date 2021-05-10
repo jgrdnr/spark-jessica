@@ -7,7 +7,7 @@
           class="w-full text-xl font-medium focus:outline-none bg-transparent "
           type="text"
           name="title"
-          placeholder="Take a note"
+          placeholder="Title"
           v-model="title"
           @blur="titleTouched = true"
         />
@@ -29,7 +29,7 @@
           class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
           type="submit"
         >
-          Create
+          Save
         </button>
       </div>
       <p v-if="submitError" class="mt-1 text-xs text-red-600">
@@ -46,21 +46,25 @@ export default {
   data() {
     return {
       title: "",
-      titleTouched: false,
       content: "",
       submitError: "",
     };
   },
+  async mounted() {
+    const id = this.$route.params.id;
+    const response = await axios.get("http://localhost:3000/notes/" + id);
+    const note = response.data;
+    this.title = note.title;
+    this.content = note.content || "";
+  },
   computed: {
     titleHint() {
-      if (this.titleTouched == false) return "";
       if (!this.title) return "Please insert a title";
       return "";
     },
   },
   methods: {
     validate() {
-      this.titleTouched = true;
       if (this.titleHint) return false;
       return true;
     },
@@ -73,16 +77,14 @@ export default {
       if (!this.validate()) return;
       try {
         const now = new Date();
-        const response = await axios.post("http://localhost:3000/notes", {
+        const id = this.$route.params.id;
+        await axios.patch("http://localhost:3000/notes/" + id, {
           title: this.title,
           content: this.content,
           collection: "Personal",
-          createdAt: now,
           updatedAt: now,
-          createdBy: this.$store.state.user.id,
         });
 
-        const id = response.data.id;
         this.$router.push("/notes/" + id);
       } catch (error) {
         console.error(error);

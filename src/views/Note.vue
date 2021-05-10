@@ -1,5 +1,12 @@
 <template>
   <div class="py-6 px-4 max-w-screen-sm mx-auto">
+    <div class="flex justify-end mb-2">
+      <router-link
+        :to="{ name: 'EditNote', params: { id: $route.params.id } }"
+        class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
+        >Edit</router-link
+      >
+    </div>
     <header class="mb-4">
       <h2 class="text-indigo-500 text-lg">{{ note.collection }}</h2>
       <h1 class="text-4xl font-medium">{{ note.title }}</h1>

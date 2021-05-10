@@ -27,38 +27,6 @@
       "createdAt": "2021-05-05T13:06:32.240Z",
       "updatedAt": "2021-05-05T13:06:32.240Z",
       "createdBy": "user-1"
-    },
-    {
-      "title": "A new note",
-      "content": "This is it's content",
-      "collection": "Personal",
-      "createdAt": "2021-05-06T09:41:34.315Z",
-      "updatedAt": "2021-05-06T09:41:34.315Z",
-      "id": "C3bozQ_"
-    },
-    {
-      "title": "This is a note",
-      "content": "It's quite nice",
-      "collection": "Personal",
-      "createdAt": "2021-05-06T15:12:09.409Z",
-      "updatedAt": "2021-05-06T15:12:09.409Z",
-      "id": "OP7hJDE"
-    },
-    {
-      "title": "Yuhuuu",
-      "content": "",
-      "collection": "Personal",
-      "createdAt": "2021-05-06T15:12:56.348Z",
-      "updatedAt": "2021-05-06T15:12:56.348Z",
-      "id": "Svg2NQX"
-    },
-    {
-      "title": "Something new",
-      "content": "bla bla bla",
-      "collection": "Personal",
-      "createdAt": "2021-05-06T15:27:11.107Z",
-      "updatedAt": "2021-05-06T15:27:11.107Z",
-      "id": "8oem6sk"
     }
   ]
 }
