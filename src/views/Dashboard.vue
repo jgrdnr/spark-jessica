@@ -1,46 +1,26 @@
 <template>
   <div class="p-4 pt-8 max-w-screen-sm mx-auto">
-    <div class="flex justify-center">
-      <router-link
-        :to="{ name: 'CreateNote' }"
-        class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
-      >
-        Take a note
-      </router-link>
-    </div>
-    <router-link
-      class="block border-b py-4"
-      :to="{ name: 'Note', params: { id: note.id } }"
-      v-for="note in notes"
-      :key="note.id"
-    >
-      <div>
-        <header class="mb-2">
-          <h3 class="text-xs text-indigo-500">
-            {{ note.collection }}
-          </h3>
-          <h2 class="text-lg font-medium">{{ note.title }}</h2>
-        </header>
-        <p>{{ note.content }}</p>
-        <p class="text-sm text-gray-400 mt-2 text-right">
-          {{ new Date(note.createdAt).toLocaleDateString() }}
-        </p>
-      </div></router-link
-    >
-    <div class="flex mt-8 justify-end">
-      <button @click="logout" class="text-sm hover:text-indigo-600">
-        Logout
-      </button>
-    </div>
+    <!-- Navigation Bar -->
+    <NavigationBar :showDashboardButton="false" />
+    <!-- Spacer Because of fixed navigation bar -->
+    <div class="pt-8"></div>
+    <!-- Main Content -->
+    <NoteItem v-for="note in notes" :note="note" :key="note.id" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
+import NoteItem from "@/components/NoteItem.vue";
+import NavigationBar from "@/components/NavigationBar.vue";
 
 export default Vue.extend({
   name: "Dashboard",
+  components: {
+    NoteItem,
+    NavigationBar,
+  },
   data() {
     return {
       notes: [],
@@ -50,10 +30,12 @@ export default Vue.extend({
     const response = await axios.get("http://localhost:3000/notes");
     this.notes = response.data;
   },
-  methods: {
-    logout() {
-      this.$store.commit("CLEAR");
-      this.$router.push({ name: "Login" });
+  methods: {},
+  computed: {
+    todoItems(): Array<Object> {
+      const todos = this.notes.filter((note: any) => note.collection == "Todo");
+      console.log(todos);
+      return todos;
     },
   },
 });

@@ -1,5 +1,8 @@
 <template>
   <div class="p-4 pt-6">
+    <NavigationBar />
+    <!-- Spacer Because of fixed navigation bar -->
+    <div class="pt-24"></div>
     <form @submit.prevent="submit" class="max-w-screen-sm mx-auto">
       <div class="mb-4">
         <label for="title" class="sr-only">Title</label>
@@ -41,14 +44,19 @@
 
 <script>
 import axios from "axios";
+import NavigationBar from "@/components/NavigationBar.vue";
 
 export default {
+  components: {
+    NavigationBar,
+  },
   data() {
     return {
       title: "",
       titleTouched: false,
       content: "",
       submitError: "",
+      selectedCollection: "",
     };
   },
   computed: {
@@ -76,7 +84,7 @@ export default {
         const response = await axios.post("http://localhost:3000/notes", {
           title: this.title,
           content: this.content,
-          collection: "Personal",
+          collection: this.selectedCollection,
           createdAt: now,
           updatedAt: now,
           createdBy: this.$store.state.user.id,

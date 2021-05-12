@@ -1,10 +1,11 @@
 <template>
   <div class="p-4 pt-6">
+    <NavigationBar />
     <form @submit.prevent="submit" class="max-w-screen-sm mx-auto">
       <div class="mb-4">
         <label for="title" class="sr-only">Title</label>
         <input
-          class="w-full text-xl font-medium focus:outline-none bg-transparent "
+          class="w-full text-xl font-medium focus:outline-none bg-transparent"
           type="text"
           name="title"
           placeholder="Title"
@@ -26,7 +27,7 @@
       </div>
       <div class="mt-4">
         <button
-          class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
+          class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50 appearance-none focus:outline-none"
           type="submit"
         >
           Save
@@ -41,8 +42,12 @@
 
 <script>
 import axios from "axios";
+import NavigationBar from "@/components/NavigationBar.vue";
 
 export default {
+  components: {
+    NavigationBar,
+  },
   data() {
     return {
       title: "",
