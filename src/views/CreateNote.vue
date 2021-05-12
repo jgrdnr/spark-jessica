@@ -27,6 +27,12 @@
           v-model="content"
         />
       </div>
+      <!-- Select option -->
+      <select v-model="selectedCollection">
+        <option>Job</option>
+        <option>Todo</option>
+        <option>Personal</option>
+      </select>
       <div class="mt-4">
         <button
           class="font-medium text-indigo-500 px-8 py-1 border-2 border-indigo-400 rounded-md text-base hover:bg-indigo-50  appearance-none focus:outline-none"
