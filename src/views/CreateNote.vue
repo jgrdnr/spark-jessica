@@ -86,15 +86,19 @@ export default {
 
       if (!this.validate()) return;
       try {
-        const now = new Date();
-        const response = await axios.post("http://localhost:3000/notes", {
-          title: this.title,
-          content: this.content,
-          collection: this.selectedCollection,
-          createdAt: now,
-          updatedAt: now,
-          createdBy: this.$store.state.user.id,
-        });
+        const response = await axios.post(
+          `${process.env.VUE_APP_API_URL}/notes`,
+          {
+            title: this.title,
+            content: this.content,
+            collection: this.selectedCollection,
+          },
+          {
+            headers: {
+              authorization: this.$store.state.token,
+            },
+          }
+        );
 
         const id = response.data.id;
         this.$router.push("/notes/" + id);

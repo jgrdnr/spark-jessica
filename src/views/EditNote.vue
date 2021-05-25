@@ -57,7 +57,9 @@ export default {
   },
   async mounted() {
     const id = this.$route.params.id;
-    const response = await axios.get("http://localhost:3000/notes/" + id);
+    const response = await axios.get(
+      `${process.env.VUE_APP_API_URL}/notes/` + id
+    );
     const note = response.data;
     this.title = note.title;
     this.content = note.content || "";
@@ -83,7 +85,7 @@ export default {
       try {
         const now = new Date();
         const id = this.$route.params.id;
-        await axios.patch("http://localhost:3000/notes/" + id, {
+        await axios.patch(`${process.env.VUE_APP_API_URL}/notes/` + id, {
           title: this.title,
           content: this.content,
           collection: "Personal",

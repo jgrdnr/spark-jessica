@@ -35,7 +35,9 @@ export default Vue.extend({
   },
   async mounted() {
     const id = this.$route.params.id;
-    const response = await axios.get("http://localhost:3000/notes/" + id);
+    const response = await axios.get(
+      `${process.env.VUE_APP_API_URL}/notes/` + id
+    );
     this.note = response.data;
   },
 });

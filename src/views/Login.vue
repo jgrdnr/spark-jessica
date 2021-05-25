@@ -162,6 +162,7 @@ export default Vue.extend({
         console.log(response);
         const { user, token } = response.data;
         this.$store.commit("SET_USER", { user, token });
+
         this.$router.push({ name: "Dashboard" });
       } catch (error) {
         console.error(error.response);
